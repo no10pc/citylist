@@ -1,0 +1,108 @@
+﻿<phone:PhoneApplicationPage xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"  x:Class="citylist.MainPage"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Portrait"
+                            Orientation="Portrait"
+                            mc:Ignorable="d"
+                            d:DesignWidth="480"
+                            d:DesignHeight="768"
+                            shell:SystemTray.IsVisible="True"
+                            DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+	<!--LayoutRoot contains the root grid where all other page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <!--Panorama 控件-->
+        <controls:Panorama Title="我的应用程序">
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="PanoramaBackground.png"/>
+            </controls:Panorama.Background>
+
+            <!--Panorama 项目一-->
+            <controls:PanoramaItem Header="省列表">
+                <!--具有文字环绕的双线列表-->
+                <ListBox x:Name="listBox" Margin="0,0,-12,0" ItemsSource="{Binding Province, Mode=OneWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                <!--用图像替换矩形-->
+                                <StackPanel Width="311">
+                                    <TextBlock Text="{Binding Id, Mode=OneWay}" FontSize="70" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                	<i:Interaction.Triggers>
+                		<i:EventTrigger EventName="SelectionChanged">
+                			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding GetCity}" CommandParameter="{Binding SelectedItem, ElementName=listBox}"/>
+                		</i:EventTrigger>
+                	</i:Interaction.Triggers>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="市列表">
+                <!--具有图像占位符和文字环绕的双线列表-->
+                <ListBox x:Name="listBox1" Margin="0,0,-12,0" ItemsSource="{Binding City, Mode=OneWay}">
+                	<i:Interaction.Triggers>
+                		<i:EventTrigger EventName="SelectionChanged">
+                			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding GetCityNext, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listBox1}"/>
+                		</i:EventTrigger>
+                	</i:Interaction.Triggers>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                <StackPanel Width="311">
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}" FontSize="70" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="区县列表">
+                <!--具有图像占位符和文字环绕的双线列表-->
+                <ListBox x:Name="ListBox2" Margin="0,0,-12,0" ItemsSource="{Binding CityNext, Mode=OneWay}">
+                	<i:Interaction.Triggers>
+                		<i:EventTrigger EventName="SelectionChanged">
+                            <GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding ShowMessage, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=ListBox2}"/>
+                		</i:EventTrigger>
+                	</i:Interaction.Triggers>
+                    <ListBox.ItemTemplate> 
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                <StackPanel Width="311">
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}" FontSize="70" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+        </controls:Panorama>
+    </Grid>
+
+    <!-- Sample code showing usage of ApplicationBar
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"></shell:ApplicationBarIconButton>
+            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"></shell:ApplicationBarIconButton>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"></shell:ApplicationBarMenuItem>
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"></shell:ApplicationBarMenuItem>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    -->
+
+
+</phone:PhoneApplicationPage>
