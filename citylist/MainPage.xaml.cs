@@ -20,11 +20,11 @@ namespace citylist
 
             List<BaseInfo> Province = new List<BaseInfo>();
             Province = new DataItem().ProvinceItem();
-            this.selectorLeft.DataSource = new ListLoopingDataSource<BaseInfo>() { Items = Province, SelectedItem = Province[1] };
+            this.selectorLeft.DataSource = new ListLoopingDataSource<BaseInfo>() { Items = Province, SelectedItem = Province[0] };
 
             this.selectorLeft.DataSource.SelectionChanged += new EventHandler<SelectionChangedEventArgs>(DataSource_SelectionChanged);
 
-            
+
 
 
 
@@ -34,11 +34,25 @@ namespace citylist
         {
             BaseInfo b = selectorLeft.DataSource.SelectedItem as BaseInfo;
             List<BaseInfo> City = new DataItem().CityItem(b.Name);
-            this.selectorRight.DataSource = new ListLoopingDataSource<BaseInfo>() { Items = City, SelectedItem = City[1] };
-           
+            this.selectorRight.DataSource = new ListLoopingDataSource<BaseInfo>() { Items = City, SelectedItem = City[0] };
+            this.selectorRight.IsExpandedChanged += new System.Windows.DependencyPropertyChangedEventHandler(selectorRight_IsExpandedChanged);
+
         }
 
-       
+        void selectorRight_IsExpandedChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            BaseInfo a = selectorLeft.DataSource.SelectedItem as BaseInfo;
+            BaseInfo b = selectorRight.DataSource.SelectedItem as BaseInfo;
+            if (!selectorRight.IsExpanded)
+            {
+                System.Windows.MessageBox.Show(a.Id + "," + b.Name);
+                selectorRight.IsExpanded = true;
+            }
+        }
+
+
+
+
 
 
 
