@@ -127,7 +127,7 @@ namespace citylist.ViewModel
 
                     GetCity = new RelayCommand<BaseInfo>((x) => ExecuteGetCity(x));
                     GetCityNext = new RelayCommand<BaseInfo>((x) => ExecuteGetCityNext(x));
-                    ShowMessage = new RelayCommand<BaseInfo>((x) => ExecuteShowMessage(x));
+                    ShowMessage = new RelayCommand<string>((x) => ExecuteShowMessage(x));
                 });
         }
         public RelayCommand<BaseInfo> GetCity { get; private set; }
@@ -152,15 +152,15 @@ namespace citylist.ViewModel
             return null;
         }
 
-        public RelayCommand<BaseInfo> ShowMessage { get; private set; }
-        private object ExecuteShowMessage(BaseInfo baseinfo)
+        public RelayCommand<string> ShowMessage { get; private set; }
+        private object ExecuteShowMessage(string str)
         {
-            if (baseinfo != null)
-            {
-                c = baseinfo;
+            //if (baseinfo != null)
+            //{
+            //    c = baseinfo;
 
-                System.Windows.MessageBox.Show(a.Id + "," + b.Name + "," + c.Name);
-            }
+               System.Windows.MessageBox.Show("AA");
+            //}
             return null;
         }
         public BaseInfo a { get; set; }

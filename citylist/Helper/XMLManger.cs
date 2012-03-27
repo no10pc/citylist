@@ -22,10 +22,14 @@ namespace citylist.Helper
         public string CityId { get; set; }
         public BaseInfo[] data { get; set; }
     }
-    public class BaseInfo
+    public class BaseInfo : IComparable<BaseInfo>
     {
         public string Id{get;set;}
         public string Name { get; set; }
+        public int CompareTo(BaseInfo other)
+        {
+            return this.Id.CompareTo(other.Id);
+        }
     }
     public class XMLManger
     {
